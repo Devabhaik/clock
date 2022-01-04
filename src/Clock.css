@@ -1,0 +1,13 @@
+body {
+    background-color: skyblue;
+    font-size: 2rem;
+    color: azure;
+    text-align: center;
+    box-sizing: border-box;
+    border: 0.5rem solid beige
+}
+
+div {
+    background-color: red;
+    padding: 2rem;
+}
