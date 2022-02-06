@@ -4,29 +4,44 @@ import './Clock.css';
 class Clock extends Component {
   constructor() {
     super();
-    const today = new Date(),
-      date =
-        today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+    const time = new Date();
+    const timeData = {
+      hours: time.getHours(),
+      min: time.getMinutes(),
+      second: time.getSeconds(),
+    };
 
-    this.state = { date: date };
+    this.state = {
+      ...timeData,
+      currentTime: timeData.hours + ':' + timeData.min + ':' + timeData.second,
+    };
   }
 
   componentDidMount() {
     setInterval(() => {
       const currentDate = new Date(),
-        currentTime =
-          currentDate.getHours() +
-          ':' +
-          currentDate.getMinutes() +
-          ':' +
-          currentDate.getSeconds();
+        Hour = currentDate.getHours(),
+        Minutes = currentDate.getMinutes(),
+        Seconds = currentDate.getSeconds();
+      let currentTime = Hour + ':' + Minutes + ':' + Seconds;
 
-      this.setState({ date: currentTime });
+      if (Hour > 12) {
+        currentTime = Hour - 12 + ':' + Minutes + ':' + Seconds;
+      } else if (Hour <= 9) {
+        currentTime = '0' + Hour + ':' + Minutes + ':' + Seconds;
+      } else if (Minutes <= 9) {
+        currentTime = Hour + ':' + '0' + Minutes + ':' + Seconds;
+      } else if (Seconds <= 9) {
+        currentTime = Hour + ':' + Minutes + ':' + '0' + Seconds;
+      }
+
+      this.setState({ currentTime });
     }, 1000);
   }
 
   render() {
-    return <div>{this.state.date}</div>;
+    console.log(this.state.currentTime);
+    return <div>{this.state.currentTime}</div>;
   }
 }
 
